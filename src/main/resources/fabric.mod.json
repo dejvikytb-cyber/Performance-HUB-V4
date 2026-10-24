@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "performancehub",
+  "version": "${version}",
+  "name": "Performance Hub V4",
+  "description": "Windows-aware client performance console with adaptive CPU-work budgets, low-memory culling caches, particle pressure control and frame/tick/system telemetry.",
+  "authors": [
+    "Performance Hub contributors"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "cz.perfhub.PerfHubClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "performancehub.mixins.json"
+  ]
+}

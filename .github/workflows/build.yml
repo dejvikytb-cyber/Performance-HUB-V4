@@ -1,3 +1,4 @@
+
 name: Build Performance HUB 2.0
 
 on:
@@ -12,7 +13,6 @@ permissions:
 
 jobs:
   build:
-    name: Build Fabric Mod
     runs-on: ubuntu-latest
 
     steps:
@@ -25,17 +25,13 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Make Gradle wrapper executable
-        run: chmod +x gradlew
-
-      - name: Verify project files
-        run: |
-          test -f gradlew
-          test -f build.gradle || test -f build.gradle.kts
-          test -f settings.gradle || test -f settings.gradle.kts
+      - name: Install Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.2.1'
 
       - name: Build mod
-        run: ./gradlew clean build --no-daemon --stacktrace
+        run: gradle clean build --no-daemon --stacktrace
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4

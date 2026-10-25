@@ -27,9 +27,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-          cache: gradle
 
-      # This project does not include gradlew, so provision Gradle directly.
+      # Gradle is provisioned below; don't enable setup-java's Gradle cache here because
+      # this repository intentionally does not include gradlew/gradle-wrapper.properties.
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -43,6 +43,7 @@ jobs:
           Write-Host "Repository root: $PWD"
           if (!(Test-Path 'build.gradle')) { throw 'build.gradle was not found in the repository root. Commit the contents of the perfhub folder, not its parent folder.' }
           if (!(Test-Path 'gradle.properties')) { throw 'gradle.properties was not found in the repository root.' }
+          if (!(Test-Path 'src/main/java')) { throw 'src/main/java was not found. Upload the project contents, not an extra parent folder.' }
 
       - name: Build mod
         shell: pwsh

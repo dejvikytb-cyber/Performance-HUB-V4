@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "performancehub",
+  "version": "${version}",
+  "name": "Performance Hub 2.0",
+  "description": "Minimal performance dashboard with hardware profiles, conservative client-side culling, particle budgets, adaptive render distance, frame-time telemetry and optional optimizer-mod detection.",
+  "authors": [
+    "Performance Hub contributors"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "cz.perfhub.PerfHubClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "sodium": "*",
+    "sodium-extra": "*",
+    "lithium": "*",
+    "ferritecore": "*",
+    "immediatelyfast": "*"
+  },
+  "mixins": [
+    "performancehub.mixins.json"
+  ]
+}

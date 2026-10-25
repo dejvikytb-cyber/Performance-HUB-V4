@@ -1,1 +1,46 @@
+name: Build Performance HUB 2.0
 
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Fabric Mod
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
+      - name: Verify project files
+        run: |
+          test -f gradlew
+          test -f build.gradle || test -f build.gradle.kts
+          test -f settings.gradle || test -f settings.gradle.kts
+
+      - name: Build mod
+        run: ./gradlew clean build --no-daemon --stacktrace
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Performance-HUB-2.0
+          path: build/libs/*.jar
+          if-no-files-found: error
+          retention-days: 14
